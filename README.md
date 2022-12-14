@@ -1,5 +1,3 @@
-# Kberezynets
-
 This project was as a test task for Frontend developer at IT Innovaion.
 
 Task description can be found below
