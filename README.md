@@ -4,8 +4,8 @@ This project was as a test task for Frontend developer at IT Innovaion.
 
 Task description can be found below
 
-Тестовое задание для Fronend-разработчика
-Использовать Angular 6+
+Тестовое задание для Fronend-разработчика 
+- Использовать Angular 6+
 Загрузить список книг и отобразить в гриде(таблица). Данные для загрузки взять здесь:
 URL: https://fakerestapi.azurewebsites.net/index.html
 Использовать метод /api/v1/Books
