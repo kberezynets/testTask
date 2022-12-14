@@ -1,27 +1,21 @@
 # Kberezynets
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.4.
+This project was as a test task for Frontend developer at IT Innovaion.
 
-## Development server
+Task description can be found below
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Тестовое задание для Fronend-разработчика
+Использовать Angular 6+
+Загрузить список книг и отобразить в гриде(таблица). Данные для загрузки взять здесь:
+URL: https://fakerestapi.azurewebsites.net/index.html
+Использовать метод /api/v1/Books
+Сделать поиск по названию книги – поле поиска динамически фильтрует список при вводе
+символов. Ищем любое совпадение последовательности.
+Сделать сортировку по названию, дате публикации, количеству страниц.
+Добавить функционал для выбора активной записи при клике (подсветка другим цветом).
+Сделать модальное окно для добавления и редактирования книги. Для модального окна
+редактирования - подставлять данные книги в окно.
+Обязательные поля - Description, Title, PublishDate, PageCount.
+Доп. Задание – сделать экспорт таблицы в EXCEL или PDF.
+Взаимное расположение всех контролов – на Ваше усмотрение. Удобство будет оцениваться.
+Решение загрузить на github и предоставить ссылку на репозиторий.
