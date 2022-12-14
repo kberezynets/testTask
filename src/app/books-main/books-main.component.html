@@ -1,0 +1,98 @@
+<!-- Использовать Angular 6+
++ Загрузить список книг и отобразить в гриде(таблица). Данные для загрузки взять здесь:
++ URL: https://fakerestapi.azurewebsites.net/index.html
++ Использовать метод /api/v1/Books
++ Сделать поиск по названию книги – поле поиска динамически фильтрует список при вводе
+символов. Ищем любое совпадение последовательности.
++ Сделать сортировку по названию, дате публикации, количеству страниц.
++ Добавить функционал для выбора активной записи при клике (подсветка другим цветом).
++/- Сделать модальное окно для добавления и редактирования книги. Для модального окна
+редактирования - подставлять данные книги в окно.
+Обязательные поля - Description, Title, PublishDate, PageCount.
++ Доп. Задание – сделать экспорт таблицы в EXCEL или PDF.
+Взаимное расположение всех контролов – на Ваше усмотрение. Удобство будет оцениваться. -->
+
+<header class="container">
+    <h3>Test task by <b>Kateryna Berezynets</b></h3>
+    <h4>performed for: <b>IT Innovations, Junior Frontend developer</b></h4>
+    <h5>December 15, 2022</h5>
+    <div class="my-form">
+        <input type="text" placeholder="Enter book title for search..." [(ngModel)]="searchBookName">
+        <input type="button" class="btn export-btn" value="Export to Excel" (click)="exportExcel()"> 
+        <input type="button" class="btn add-btn" value="Add book" (click)="addBook()"> 
+        <input type="button" class="btn" value="Clear selection" (click)="clearSelection()"
+        [ngStyle]="{'background-color': rowId > -1 ? 'red' : 'white' }">    
+    </div>
+</header>
+
+<body class="container">
+    <div class="spacer"></div>
+    <table id="export">
+        <colgroup>
+            <col style="width:10%">
+            <col style="width:29%">
+            <col style="width:12%">
+            <col style="width:29%">
+            <col style="width:12%">
+            <col style="width:7%">
+          </colgroup> 
+        <tr>
+            <th (click)="changeSort($event)" id="title">Book title
+                <ng-container *ngIf="showArrow && sortColumn === 'title' "> 
+                    <span [innerHTML] = "myArrow"></span> 
+                </ng-container>
+            </th>
+            <th>Book description</th>
+            <th (click)="changeSort($event)" id="pageCount">Page count
+                <ng-container *ngIf="showArrow && sortColumn === 'pageCount' "> 
+                    <span [innerHTML] = "myArrow"></span> 
+                </ng-container>
+            </th>
+            <th>Excerpt</th>
+            <th (click)="changeSort($event)" id="publishDate">
+                Publish date
+                <ng-container *ngIf="showArrow && sortColumn === 'publishDate' "> 
+                    <span [innerHTML] = "myArrow"></span> 
+                </ng-container>
+            </th>
+            <th>edit</th>
+        </tr>
+        <tbody>
+            <tr *ngFor="let book of booksData | search: searchBookName | sort: sortColumn: asc; index as i" 
+                (click)="chooseBook(i)" 
+                [ngClass]="i == rowId ? 'selected' : 'unselected'">
+                <td> {{ book.title }} </td>
+                <td> {{ book.description | slice:0:99 }} 
+                    <span *ngIf="book.description.length > 100">...</span>
+                </td>
+                <td> {{ book.pageCount}} </td>
+                <td> {{ book.excerpt | slice:0:99 }} 
+                    <span *ngIf="book.excerpt.length > 100">...</span>
+                </td>
+                <td>{{ book.publishDate | date: 'dd.MM.yyyy' }}</td>
+                <td>
+                    <input type="button" class="btn edit" value="Edit" (click)="editBook(book)">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+<ng-container *ngIf="openModal">
+    <div class="wrapper">
+        <div class="content">
+            <h2> {{ !editStatus ? 'Add' : 'Edit' }} book</h2>
+            <span class="close" (click)="closeModal()">x</span>
+            <form [formGroup]="bookForm" (ngSubmit)="saveBook()" class="modal-form">
+                <input formControlName="title" name="title" type="text" class="add" id="modalTitle" placeholder="title goes here...">
+                <textarea formControlName="description" name="description" id="modalDescription" placeholder="description goes here... " class="add" cols="30" rows="4"></textarea>
+                <input formControlName="pageCount" name="pageCount" type="number" class="add" id="modalPageCount" placeholder="page count goes here... ">
+                <textarea formControlName="excerpt" name="excerpt" id="modalExcerpt" placeholder="excerpt goes here... " class="add" cols="30" rows="4"></textarea>
+                <input formControlName="publishDate" name="publishDate" type="date" class="add" id="modalPublishDate" placeholder="publish date goes here... ">
+                <button 
+                [disabled]="bookForm.invalid" 
+                type="submit" class="btn save">SAVE</button>
+            </form>
+        </div>
+    </div>
+</ng-container>
